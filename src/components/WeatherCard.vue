@@ -27,23 +27,26 @@ const date = new Date().toLocaleString("en-US", options);
 
 <template>
   <li class="weather-card">
-    <h2 class="weather-card-city">{{ name }}</h2>
-    <div class="weather-card-content">
-      <div class="weather-card-common">
-        <h3 class="weather-card-title">Weather</h3>
-        <p class="weather-card-date">{{ date }}</p>
-        <p class="weather-card-weather">{{ main }}</p>
+    <div class="weather-card-container">
+      <h2 class="weather-card-city">{{ name }}</h2>
+      <div class="weather-card-content">
+        <div class="weather-card-common">
+          <h3 class="weather-card-title">Weather</h3>
+          <p class="weather-card-date">{{ date }}</p>
+          <p class="weather-card-weather">{{ main }}</p>
+        </div>
+        <div class="weather-card-visual">
+          <img
+            class="weather-card-image"
+            :src="`https://openweathermap.org/img/wn/${icon}@2x.png`"
+            :alt="`Weather image ${id}`"
+          />
+          <p class="weather-card-temp">{{ temperature }}&#8451;</p>
+        </div>
       </div>
-      <div class="weather-card-visual">
-        <img
-          class="weather-card-image"
-          :src="`https://openweathermap.org/img/wn/${icon}@2x.png`"
-          :alt="`Weather image ${id}`"
-        />
-        <p class="weather-card-temp">{{ temperature }}&#8451;</p>
-      </div>
+      <WeatherChart :weather="list" />
     </div>
-    <WeatherChart :weather="list" />
+
     <div class="weather-card-decoration"></div>
   </li>
 </template>
@@ -59,8 +62,12 @@ const date = new Date().toLocaleString("en-US", options);
   border-radius: 2rem;
   list-style: none;
   box-shadow: 0px 0px 5px var(--color-white);
-  z-index: -2;
   padding: 2rem;
+}
+
+.weather-card-container {
+  position: relative;
+  z-index: 2;
 }
 
 .weather-card-city {
@@ -110,6 +117,6 @@ const date = new Date().toLocaleString("en-US", options);
   border-radius: 2rem;
   background-color: var(--color-accent-lightest);
   clip-path: polygon(56% 40%, 100% 71%, 100% 100%, 0 100%, 0 0);
-  z-index: -1;
+  z-index: 0;
 }
 </style>
