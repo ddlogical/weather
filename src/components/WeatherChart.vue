@@ -8,9 +8,14 @@ import { weatherByDays } from "../helpers/weatherByDays";
 import CustomButton from "./CustomButton.vue";
 
 Chart.register(ChartDataLabels);
-const { weather } = defineProps({
+
+const { weather, id } = defineProps({
   weather: Array,
+  id: Number,
 });
+
+const chartId = `weather-chart ${id * Math.random(id)}`;
+
 const defaultOption = ref(true);
 const weatherForFiveDays = weatherByDays(weather);
 
@@ -32,7 +37,7 @@ const handleOptionClick = (isOneDay) => {
 };
 
 onMounted(() => {
-  const chrt = document.getElementById("weather-chart");
+  const chrt = document.getElementById(chartId);
   chart = new Chart(chrt, {
     type: "line",
     data: {
@@ -51,7 +56,7 @@ onMounted(() => {
       maintainAspectRatio: false,
       layout: {
         padding: {
-          top: 20,
+          top: 50,
         },
       },
       events: ["mousemove", "mouseout", "click", "touchstart", "touchmove"],
@@ -114,7 +119,7 @@ onMounted(() => {
         @clickHandler="handleOptionClick(false)"
       />
     </div>
-    <canvas id="weather-chart"></canvas>
+    <canvas :id="chartId"></canvas>
   </div>
 </template>
 

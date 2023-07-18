@@ -23,5 +23,9 @@ export const useWeatherStore = defineStore("weatherStore", {
       };
       this.loaded = true;
     },
+    addNewWeather() {
+      this.index += 1;
+      this.weather[this.index] = this.weather[this.index - 1];
+    },
   },
 });

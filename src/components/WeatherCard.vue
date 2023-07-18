@@ -39,12 +39,12 @@ const date = new Date().toLocaleString("en-US", options);
           <img
             class="weather-card-image"
             :src="`https://openweathermap.org/img/wn/${icon}@2x.png`"
-            :alt="`Weather image ${id}`"
+            :alt="`Weather image ${Math.round(id * Math.random(id))}`"
           />
           <p class="weather-card-temp">{{ temperature }}&#8451;</p>
         </div>
       </div>
-      <WeatherChart :weather="list" />
+      <WeatherChart :weather="list" :id="id" />
     </div>
 
     <div class="weather-card-decoration"></div>
