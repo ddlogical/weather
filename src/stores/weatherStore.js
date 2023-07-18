@@ -3,6 +3,7 @@ import getCityWeather from "../api/getCityWeather";
 
 export const useWeatherStore = defineStore("weatherStore", {
   state: () => ({
+    index: 0,
     weather: [],
     loaded: true,
   }),
@@ -10,10 +11,16 @@ export const useWeatherStore = defineStore("weatherStore", {
     async addWeather(lat, lon) {
       this.loaded = false;
       const {
-        city: { id, name },
+        city: { id, name, country },
         list,
       } = await getCityWeather(lat, lon);
-      this.weather = [{ id, name, list }];
+      this.weather[this.index] = {
+        id,
+        name: `${name}, ${country}`,
+        lat,
+        lon,
+        list,
+      };
       this.loaded = true;
     },
   },

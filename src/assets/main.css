@@ -5,10 +5,11 @@
   --color-accent-darkest: #2e335a;
   --color-accent-dark: #3a3a6a;
   --color-accent-light: #48319d;
+  --color-accent-lightest: #5936b4;
   --color-gold: #ffcc00;
   --color-white: #fff;
   --color-black: #000;
-  --color-gray: #ebebf5;
+  --color-gray: #c1c1c5;
 }
 
 *,

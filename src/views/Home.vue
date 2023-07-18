@@ -4,6 +4,7 @@ import getUserIp from "../api/getUserIp";
 import getUserLocation from "../api/getUserLocation";
 import { useWeatherStore } from "../stores/weatherStore";
 import SearchAutocomplete from "../components/SearchAutocomplete.vue";
+import WeatherCardList from "../components/WeatherCardList.vue";
 
 const weatherStore = useWeatherStore();
 
@@ -16,4 +17,5 @@ onMounted(async () => {
 
 <template>
   <SearchAutocomplete />
+  <WeatherCardList :weather="weatherStore.weather" />
 </template>

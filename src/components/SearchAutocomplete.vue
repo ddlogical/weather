@@ -58,8 +58,8 @@ const autompleteClickHandler = async (data) => {
 .autocomplete-results {
   padding: 0;
   margin: 0;
-  border: 1px solid var(--color-white);
-  background-color: transparent;
+  background-color: var(--color-white);
+  color: var(--color-black);
   border-radius: 5px;
   padding: 1rem;
   position: absolute;
@@ -76,9 +76,11 @@ const autompleteClickHandler = async (data) => {
   padding: 4px 0;
   cursor: pointer;
   transition: all 0.2s ease-in;
+  border-radius: 2px;
 }
 
 .autocomplete-result:hover {
-  text-shadow: var(--color-gold) 1px 0 10px;
+  background-color: var(--color-accent-lightest);
+  color: var(--color-white);
 }
 </style>
