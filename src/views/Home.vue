@@ -3,15 +3,22 @@ import { ref, onMounted } from "vue";
 import getUserIp from "../api/getUserIp";
 import getUserLocation from "../api/getUserLocation";
 import { useWeatherStore } from "../stores/weatherStore";
+import { useModalStore } from "../stores/modalStore";
 import SearchAutocomplete from "../components/SearchAutocomplete.vue";
 import CustomButton from "../components/CustomButton.vue";
 import WeatherCardList from "../components/WeatherCardList.vue";
 
 const weatherStore = useWeatherStore();
+const modalStore = useModalStore();
 
 const handleAddClick = () => {
-  if (weatherStore.index < 5) {
+  if (weatherStore.index < 4) {
     weatherStore.addNewWeather();
+  } else {
+    modalStore.show(
+      "warn",
+      "You have added too many cities. Please, delete some."
+    );
   }
 };
 
@@ -31,7 +38,7 @@ onMounted(async () => {
 <style coped>
 .btn-add {
   position: absolute;
-  top: 50%;
+  top: 10rem;
   right: 0;
   background-color: var(--color-accent-lightest);
   color: var(--color-white);
