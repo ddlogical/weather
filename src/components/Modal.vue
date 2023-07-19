@@ -99,4 +99,10 @@ const handleConfirmClick = () => {
   color: var(--color-accent-lightest);
   background-color: var(--color-white);
 }
+
+@media only screen and (max-width: 37.5em) {
+  .modal-content {
+    width: 80%;
+  }
+}
 </style>

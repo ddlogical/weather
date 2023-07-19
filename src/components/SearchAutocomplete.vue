@@ -40,6 +40,11 @@ const autompleteClickHandler = async (data) => {
   margin: 0 auto;
 }
 
+@media only screen and (max-width: 37.5em) {
+  .autocomplete {
+    max-width: 100%;
+  }
+}
 .autocomplete-input {
   background-color: var(--color-accent-darkest);
   width: 100%;

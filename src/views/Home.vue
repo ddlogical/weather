@@ -61,4 +61,14 @@ onMounted(async () => {
 .btn-add:hover {
   transform: scale(1.2);
 }
+@media only screen and (max-width: 75em) {
+  .btn-add {
+    position: absolute;
+    top: 1rem;
+    right: 14.5rem;
+    width: 4rem;
+    height: 4rem;
+    font-size: 3rem;
+  }
+}
 </style>

@@ -190,4 +190,18 @@ const handleDeleteClick = () => {
 .card-icon {
   fill: var(--color-white);
 }
+
+@media only screen and (max-width: 37.5em) {
+  .weather-card {
+    width: 100%;
+  }
+
+  .weather-card-image {
+    display: none;
+  }
+
+  .weather-card-temp {
+    font-size: 4rem;
+  }
+}
 </style>
