@@ -8,11 +8,7 @@ const { weather } = defineProps({
 
 <template>
   <ul class="weather-list">
-    <WeatherCard
-      v-for="elem of weather"
-      :weather="elem"
-      :key="elem.id * Math.random(elem.id)"
-    />
+    <WeatherCard v-for="elem of weather" :weather="elem" :key="elem.id" />
   </ul>
 </template>
 

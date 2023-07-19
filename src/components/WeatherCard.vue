@@ -1,9 +1,14 @@
 <script setup>
 import WeatherChart from "./WeatherChart.vue";
+import CustomButton from "./CustomButton.vue";
+import { useModalStore } from "../stores/modalStore";
+import Icon from "./Icon.vue";
 
-const { weather } = defineProps({
+const { weather, isFavorite } = defineProps({
   weather: Object,
+  isFavorite: Boolean,
 });
+const { show } = useModalStore();
 const {
   id,
   name,
@@ -23,6 +28,9 @@ const options = {
   day: "numeric",
 };
 const date = new Date().toLocaleString("en-US", options);
+const handleDeleteClick = () => {
+  show("delete", "Do you really want to delete this city?", false, id);
+};
 </script>
 
 <template>
@@ -39,12 +47,20 @@ const date = new Date().toLocaleString("en-US", options);
           <img
             class="weather-card-image"
             :src="`https://openweathermap.org/img/wn/${icon}@2x.png`"
-            :alt="`Weather image ${Math.round(id * Math.random(id))}`"
+            :alt="`Weather image ${id}}`"
           />
           <p class="weather-card-temp">{{ temperature }}&#8451;</p>
         </div>
       </div>
       <WeatherChart :weather="list" :id="id" />
+      <div class="card-btns">
+        <CustomButton class="card-btn">
+          <Icon type="favorite" class="card-icon" />
+        </CustomButton>
+        <CustomButton class="card-btn" @clickHandler="handleDeleteClick">
+          <Icon type="delete" class="card-icon" />
+        </CustomButton>
+      </div>
     </div>
 
     <div class="weather-card-decoration"></div>
@@ -118,5 +134,25 @@ const date = new Date().toLocaleString("en-US", options);
   background-color: var(--color-accent-lightest);
   clip-path: polygon(56% 40%, 100% 71%, 100% 100%, 0 100%, 0 0);
   z-index: 0;
+}
+
+.card-btns {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.card-btn {
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  transition: all 0.2s ease-in;
+}
+.card-btn:hover {
+  transform: scale(1.1);
+}
+
+.card-icon {
+  fill: var(--color-white);
 }
 </style>

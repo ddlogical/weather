@@ -1,9 +1,3 @@
-<script setup>
-const props = defineProps({
-  text: String,
-});
-</script>
-
 <template>
-  <button @click="$emit('clickHandler')">{{ text }}</button>
+  <button @click="$emit('clickHandler')"><slot></slot></button>
 </template>

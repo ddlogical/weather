@@ -1,22 +1,45 @@
 <script setup>
 import CustomButton from "./CustomButton.vue";
 import { useModalStore } from "../stores/modalStore";
-// Do you really want to delete this city?
+import { useWeatherStore } from "../stores/weatherStore";
+
 const modalStore = useModalStore();
+const weatherStore = useWeatherStore();
+
+const handleConfirmClick = () => {
+  if (modalStore.type === "warn") {
+    modalStore.hide();
+  }
+  if (modalStore.type === "delete") {
+    if (!modalStore.isFavorites) {
+      if (weatherStore.index === 0) {
+        modalStore.hide();
+        modalStore.show("warn", "You can't delete last city.");
+      } else {
+        weatherStore.deleteWeather(modalStore.id);
+        modalStore.hide();
+      }
+    } else {
+    }
+  }
+};
 </script>
 
 <template>
-  <div class="modal">
-    <div class="modal-content">
+  <div class="modal" @click="modalStore.hide()">
+    <div class="modal-content" @click.stop="">
       <div class="modal-data">
         <p>{{ modalStore.text }}</p>
         <div class="modal-btns">
-          <CustomButton text="OK" class="modal-btn" />
+          <CustomButton class="modal-btn" @clickHandler="handleConfirmClick"
+            >OK</CustomButton
+          >
           <CustomButton
-            text="No"
             v-if="modalStore.type === 'delete'"
             class="modal-btn"
-          />
+            @clickHandler="modalStore.hide()"
+            >No</CustomButton
+          >
         </div>
       </div>
     </div>

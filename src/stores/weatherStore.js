@@ -15,7 +15,7 @@ export const useWeatherStore = defineStore("weatherStore", {
         list,
       } = await getCityWeather(lat, lon);
       this.weather[this.index] = {
-        id,
+        id: Math.round(id * Math.random(id)),
         name: `${name}, ${country}`,
         lat,
         lon,
@@ -25,7 +25,18 @@ export const useWeatherStore = defineStore("weatherStore", {
     },
     addNewWeather() {
       this.index += 1;
-      this.weather[this.index] = this.weather[this.index - 1];
+      const newId = Math.round(
+        this.weather[this.index - 1].id *
+          Math.random(this.weather[this.index - 1].id)
+      );
+      this.weather[this.index] = {
+        ...this.weather[this.index - 1],
+        id: newId,
+      };
+    },
+    deleteWeather(id) {
+      this.weather = this.weather.filter((elem) => elem.id !== id);
+      this.index -= 1;
     },
   },
 });

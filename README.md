@@ -1,7 +1,16 @@
-# Vue 3 + Vite
+# Як працювати з додатком Weather
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+По замовчуванню підтягується погодо за IP адресою користувача.
 
-## Recommended IDE Setup
+## Як додати інше місто
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+Користувач повинен ввести назву іншого міста в поле з пошуком
+
+## Як додати декілька карток з погодою одночасно
+
+Користувач повинен клікнути по кнопці + ввести назву іншого міста в поле з пошуком
+
+## Як видалити місто
+
+Користувач повинен клікнути по кнопці X на картці з відповідним містом, підтвердити видалення в модалці
+(останнє місто видалити не можна).

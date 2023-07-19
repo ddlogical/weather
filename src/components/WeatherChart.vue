@@ -14,7 +14,7 @@ const { weather, id } = defineProps({
   id: Number,
 });
 
-const chartId = `weather-chart ${id * Math.random(id)}`;
+const chartId = `weather-chart ${id}`;
 
 const defaultOption = ref(true);
 const weatherForFiveDays = weatherByDays(weather);
@@ -107,17 +107,17 @@ onMounted(() => {
     <h4 class="weather-chart-heading">Temperature</h4>
     <div class="weather-chart-btns">
       <CustomButton
-        text="1 day"
         class="btn-option"
         :class="{ 'btn-option-active': defaultOption }"
         @clickHandler="handleOptionClick(true)"
-      />
+        >1 day</CustomButton
+      >
       <CustomButton
-        text="5 days"
         class="btn-option"
         :class="{ 'btn-option-active': !defaultOption }"
         @clickHandler="handleOptionClick(false)"
-      />
+        >5 days</CustomButton
+      >
     </div>
     <canvas :id="chartId"></canvas>
   </div>

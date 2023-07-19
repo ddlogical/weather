@@ -9,16 +9,13 @@ import CustomButton from "../components/CustomButton.vue";
 import WeatherCardList from "../components/WeatherCardList.vue";
 
 const weatherStore = useWeatherStore();
-const modalStore = useModalStore();
+const { show } = useModalStore();
 
 const handleAddClick = () => {
   if (weatherStore.index < 4) {
     weatherStore.addNewWeather();
   } else {
-    modalStore.show(
-      "warn",
-      "You have added too many cities. Please, delete some."
-    );
+    show("warn", "You have added too many cities. Please, delete some.");
   }
 };
 
@@ -32,7 +29,7 @@ onMounted(async () => {
 <template>
   <SearchAutocomplete />
   <WeatherCardList :weather="[...weatherStore.weather].reverse()" />
-  <CustomButton text="+" class="btn-add" @clickHandler="handleAddClick" />
+  <CustomButton class="btn-add" @clickHandler="handleAddClick">+</CustomButton>
 </template>
 
 <style coped>
