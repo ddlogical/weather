@@ -191,6 +191,12 @@ const handleDeleteClick = () => {
   fill: var(--color-white);
 }
 
+@media only screen and (max-width: 56.25em) {
+  .weather-card-city {
+    font-size: 3rem;
+  }
+}
+
 @media only screen and (max-width: 37.5em) {
   .weather-card {
     width: 100%;
