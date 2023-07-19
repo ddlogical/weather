@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted } from "vue";
+import { computed, onMounted } from "vue";
 import getUserIp from "../api/getUserIp";
 import getUserLocation from "../api/getUserLocation";
 import Loader from "../components/Loader.vue";
@@ -23,8 +23,10 @@ const handleAddClick = () => {
 onMounted(async () => {
   if (weatherStore.weather.length === 0) {
     const ip = await getUserIp();
-    const { lat, lon } = await getUserLocation(ip);
-    weatherStore.addWeather(lat, lon);
+    if (ip) {
+      const { lat, lon } = await getUserLocation(ip);
+      weatherStore.addWeather(lat, lon);
+    }
   }
 });
 </script>
@@ -36,7 +38,10 @@ onMounted(async () => {
       :weather="[...weatherStore.weather].reverse()"
       :isFavorite="false"
     />
-    <CustomButton class="btn-add" @clickHandler="handleAddClick"
+    <CustomButton
+      v-if="weatherStore.weather.length > 0"
+      class="btn-add"
+      @clickHandler="handleAddClick"
       >+</CustomButton
     >
   </template>

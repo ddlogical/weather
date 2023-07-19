@@ -23,4 +23,7 @@ export const useFavoritesStore = defineStore("favoritesStore", {
       this.favorites = this.favorites.filter((elem) => elem.name !== name);
     },
   },
+  persist: {
+    storage: localStorage,
+  },
 });
