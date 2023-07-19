@@ -209,5 +209,9 @@ const handleDeleteClick = () => {
   .weather-card-temp {
     font-size: 4rem;
   }
+
+  .card-btns {
+    top: 3rem;
+  }
 }
 </style>
