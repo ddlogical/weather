@@ -1,6 +1,7 @@
 <script setup>
 import { computed, onMounted } from "vue";
 import WeatherCardList from "../components/WeatherCardList.vue";
+import Loader from "../components/Loader.vue";
 import { useFavoritesStore } from "../stores/favoritesStore";
 
 const favoritesStore = useFavoritesStore();
@@ -25,6 +26,10 @@ onMounted(() => {
     v-if="isLoaded"
     isFavorite
     :weather="[...favoritesStore.favorites].reverse()"
+  />
+  <Loader
+    :active="!isLoaded && favoritesStore.favorites.length !== 0"
+    text="Loading..."
   />
 </template>
 

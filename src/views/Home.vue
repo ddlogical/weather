@@ -2,6 +2,7 @@
 import { onMounted } from "vue";
 import getUserIp from "../api/getUserIp";
 import getUserLocation from "../api/getUserLocation";
+import Loader from "../components/Loader.vue";
 import { useWeatherStore } from "../stores/weatherStore";
 import { useModalStore } from "../stores/modalStore";
 import SearchAutocomplete from "../components/SearchAutocomplete.vue";
@@ -20,19 +21,26 @@ const handleAddClick = () => {
 };
 
 onMounted(async () => {
-  // const ip = await getUserIp();
-  // const { lat, lon } = await getUserLocation(ip);
-  // weatherStore.addWeather(lat, lon);
+  if (weatherStore.weather.length === 0) {
+    const ip = await getUserIp();
+    const { lat, lon } = await getUserLocation(ip);
+    weatherStore.addWeather(lat, lon);
+  }
 });
 </script>
 
 <template>
   <SearchAutocomplete />
-  <WeatherCardList
-    :weather="[...weatherStore.weather].reverse()"
-    :isFavorite="false"
-  />
-  <CustomButton class="btn-add" @clickHandler="handleAddClick">+</CustomButton>
+  <template v-if="weatherStore.loaded">
+    <WeatherCardList
+      :weather="[...weatherStore.weather].reverse()"
+      :isFavorite="false"
+    />
+    <CustomButton class="btn-add" @clickHandler="handleAddClick"
+      >+</CustomButton
+    >
+  </template>
+  <Loader :active="!weatherStore.loaded" text="Loading..." />
 </template>
 
 <style coped>

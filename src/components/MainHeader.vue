@@ -4,10 +4,6 @@ import { reactive, watch, watchEffect } from "vue";
 import { useFavoritesStore } from "../stores/favoritesStore";
 
 const favoritesStore = useFavoritesStore();
-// const favouritesLen = reactive({ value: favoritesLength });
-// watchEffect(() => {
-//   favouritesLen.value = favoritesLength;
-// });
 </script>
 
 <template>
@@ -19,9 +15,9 @@ const favoritesStore = useFavoritesStore();
       <router-link to="/favorites" class="header-link">
         <Icon type="favorite" class="header-icon" />
         <span
-          v-if="favoritesStore.favoritesLength > 0"
+          v-if="favoritesStore.favorites.length > 0"
           class="header-favorites-counter"
-          >{{ favoritesStore.favoritesLength }}</span
+          >{{ favoritesStore.favorites.length }}</span
         >
       </router-link>
     </nav>
