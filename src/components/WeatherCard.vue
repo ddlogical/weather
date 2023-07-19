@@ -1,17 +1,26 @@
 <script setup>
+import { reactive, watchEffect } from "vue";
 import WeatherChart from "./WeatherChart.vue";
 import CustomButton from "./CustomButton.vue";
 import { useModalStore } from "../stores/modalStore";
+import { useFavoritesStore } from "../stores/favoritesStore";
 import Icon from "./Icon.vue";
 
 const { weather, isFavorite } = defineProps({
   weather: Object,
   isFavorite: Boolean,
 });
+
 const { show } = useModalStore();
+
+const { inFavorites, addToFavorites, removeFromFavorites, favorites } =
+  useFavoritesStore();
+
 const {
   id,
   name,
+  lat,
+  lon,
   list,
   list: [
     {
@@ -20,6 +29,10 @@ const {
     },
   ],
 } = weather;
+const isInFavorites = reactive({ value: inFavorites(name) });
+watchEffect(() => {
+  isInFavorites.value = inFavorites(name);
+});
 const temperature = Math.round(temp);
 const options = {
   weekday: "long",
@@ -28,8 +41,23 @@ const options = {
   day: "numeric",
 };
 const date = new Date().toLocaleString("en-US", options);
+
+const handleFavoriteClick = () => {
+  if (!isInFavorites.value) {
+    if (favorites.length >= 5) {
+      show(
+        "warn",
+        "To add more cities in favorites, remove some (max 5 cities)."
+      );
+    } else {
+      addToFavorites({ id, name, lat, lon, list: [] });
+    }
+  } else {
+    removeFromFavorites(name);
+  }
+};
 const handleDeleteClick = () => {
-  show("delete", "Do you really want to delete this city?", false, id);
+  show("delete", "Do you really want to delete this city?", id);
 };
 </script>
 
@@ -54,10 +82,17 @@ const handleDeleteClick = () => {
       </div>
       <WeatherChart :weather="list" :id="id" />
       <div class="card-btns">
-        <CustomButton class="card-btn">
-          <Icon type="favorite" class="card-icon" />
+        <CustomButton class="card-btn" @clickHandler="handleFavoriteClick">
+          <Icon
+            :type="isInFavorites.value ? 'favorite-fill' : 'favorite'"
+            class="card-icon"
+          />
         </CustomButton>
-        <CustomButton class="card-btn" @clickHandler="handleDeleteClick">
+        <CustomButton
+          v-if="!isFavorite"
+          class="card-btn"
+          @clickHandler="handleDeleteClick"
+        >
           <Icon type="delete" class="card-icon" />
         </CustomButton>
       </div>

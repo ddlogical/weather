@@ -6,15 +6,11 @@ export const useModalStore = defineStore("modalStore", {
     type: "",
     text: "",
     id: false,
-    isFavorites: false,
   }),
   actions: {
-    show(type, text, isFavorites = false, id = false) {
+    show(type, text, id = false) {
       this.type = type;
       this.text = text;
-      if (isFavorites) {
-        this.isFavorites = isFavorites;
-      }
       if (id) {
         this.id = id;
       }
@@ -24,7 +20,6 @@ export const useModalStore = defineStore("modalStore", {
       this.type = "";
       this.text = "";
       this.id = false;
-      this.isFavorites = false;
       this.isVisible = false;
     },
   },

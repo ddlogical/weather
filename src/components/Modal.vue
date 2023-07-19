@@ -11,15 +11,12 @@ const handleConfirmClick = () => {
     modalStore.hide();
   }
   if (modalStore.type === "delete") {
-    if (!modalStore.isFavorites) {
-      if (weatherStore.index === 0) {
-        modalStore.hide();
-        modalStore.show("warn", "You can't delete last city.");
-      } else {
-        weatherStore.deleteWeather(modalStore.id);
-        modalStore.hide();
-      }
+    if (weatherStore.index === 0) {
+      modalStore.hide();
+      modalStore.show("warn", "You can't delete last city.");
     } else {
+      weatherStore.deleteWeather(modalStore.id);
+      modalStore.hide();
     }
   }
 };

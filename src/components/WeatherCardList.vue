@@ -1,14 +1,19 @@
 <script setup>
 import WeatherCard from "./WeatherCard.vue";
 
-const { weather } = defineProps({
+const { weather, isFavorite } = defineProps({
   weather: Array,
+  isFavorite: Boolean,
 });
 </script>
-
 <template>
   <ul class="weather-list">
-    <WeatherCard v-for="elem of weather" :weather="elem" :key="elem.id" />
+    <WeatherCard
+      v-for="elem of weather"
+      :weather="elem"
+      :key="elem.id"
+      :isFavorite="isFavorite"
+    />
   </ul>
 </template>
 

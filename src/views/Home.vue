@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { onMounted } from "vue";
 import getUserIp from "../api/getUserIp";
 import getUserLocation from "../api/getUserLocation";
 import { useWeatherStore } from "../stores/weatherStore";
@@ -28,7 +28,10 @@ onMounted(async () => {
 
 <template>
   <SearchAutocomplete />
-  <WeatherCardList :weather="[...weatherStore.weather].reverse()" />
+  <WeatherCardList
+    :weather="[...weatherStore.weather].reverse()"
+    :isFavorite="false"
+  />
   <CustomButton class="btn-add" @clickHandler="handleAddClick">+</CustomButton>
 </template>
 
